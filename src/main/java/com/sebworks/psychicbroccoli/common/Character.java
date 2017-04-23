@@ -16,6 +16,10 @@ public class Character implements Serializable {
     private long xp;
     private Level level;
 
+    private int hpCurrent = 100;
+    private int hpMax = 100;
+    private int noOfMonstersAround = 0;
+
     public Character(String name) {
         this(name, System.currentTimeMillis(), System.currentTimeMillis(), 0, Level.LEVEL_1);
     }
@@ -71,6 +75,30 @@ public class Character implements Serializable {
 
     public void setLevel(Level level) {
         this.level = level;
+    }
+
+    public int getHpCurrent() {
+        return hpCurrent;
+    }
+
+    public void setHpCurrent(int hpCurrent) {
+        this.hpCurrent = hpCurrent;
+    }
+
+    public int getHpMax() {
+        return hpMax;
+    }
+
+    public void setHpMax(int hpMax) {
+        this.hpMax = hpMax;
+    }
+
+    public int getNoOfMonstersAround() {
+        return noOfMonstersAround;
+    }
+
+    public void setNoOfMonstersAround(int noOfMonstersAround) {
+        this.noOfMonstersAround = noOfMonstersAround;
     }
 
     @Override

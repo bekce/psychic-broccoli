@@ -33,8 +33,14 @@ public class MainState implements State {
                     .addOption(new Option<>(MainOption.RETURN, "Return to main menu"))
                     .ask()) {
                 case EXPLORE:
-                    break;
+                    if(character.getNoOfMonstersAround() >= 3){
+                        System.err.println("Cannot move, blocked by monsters!");
+                    }
+                    return new AdventureState(character);
                 case FIGHT:
+                    if(character.getNoOfMonstersAround() <= 0){
+                        System.err.println("No monsters around!");
+                    }
                     break;
                 case SAVE:
                     try {

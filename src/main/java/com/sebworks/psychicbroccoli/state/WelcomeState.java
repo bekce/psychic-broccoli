@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import static com.sebworks.psychicbroccoli.state.WelcomeState.CreateLoadOption.CREATE;
 import static com.sebworks.psychicbroccoli.state.WelcomeState.CreateLoadOption.LOAD;
+import static com.sebworks.psychicbroccoli.state.WelcomeState.CreateLoadOption.QUIT;
 
 /**
  * Created by seb on 23.04.2017.
@@ -26,18 +27,17 @@ public class WelcomeState implements State {
 
     @Override
     public State outcome() {
-        Character character;
-
         while (true) {
             System.out.println("\nWelcome to psychic broccoli");
             switch (new SelectionRequest<CreateLoadOption>()
                     .addOption(new Option<>(CREATE, "Create a character"))
-                    .addOption(new Option<>(LOAD, "Load a character")).ask()) {
+                    .addOption(new Option<>(LOAD, "Load a character"))
+                    .addOption(new Option<>(QUIT, "Quit the game"))
+                    .ask()) {
                 case CREATE:
                     String name = new InputRequest("Enter character name", characterNamePattern).ask();
-                    character = new Character(name);
                     System.out.println(name + " embarks upon a new adventure!");
-                    return new MainState(character);
+                    return new MainState(new Character(name));
                 case LOAD:
                     List<Character> characters = SaveLoadUtil.load();
                     if (characters.isEmpty()) {
@@ -45,8 +45,9 @@ public class WelcomeState implements State {
                         break;
                     }
                     Collections.reverse(characters);
-                    character = new SelectionRequest<Character>("Select a character to load").setOptionValues(characters).ask();
-                    return new MainState(character);
+                    return new MainState(new SelectionRequest<Character>("Select a character to load")
+                            .setOptionValues(characters)
+                            .ask());
                 case QUIT:
                     System.out.println("Have a nice day!");
                     return null;

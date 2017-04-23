@@ -1,9 +1,12 @@
 package com.sebworks.psychicbroccoli.common;
 
+import java.io.Serializable;
+
 /**
  * Created by seb on 23.04.2017.
  */
-public class Monster {
+public class Monster implements Serializable {
+
     private int hpCurrent;
     private int hpMax;
     private String name;
@@ -50,6 +53,6 @@ public class Monster {
 
     @Override
     public String toString() {
-        return String.format("%d [hp=%d, xp reward=%d]", name, hpMax, xpReward);
+        return String.format("%s [hp=%d, xp reward=%d]", name, hpMax, xpReward);
     }
 }

@@ -18,9 +18,9 @@ public class Character implements Serializable {
     private long xp;
     private Level level;
 
-    private int hpCurrent = 100;
-    private int hpMax = 100;
-    private int noOfMonstersAround = 0;
+    private int faintCount = 0;
+    private int hpCurrent;
+    private int hpMax;
     private List<Monster> monstersAround = new ArrayList<>();
 
     public Character(String name) {
@@ -34,6 +34,8 @@ public class Character implements Serializable {
         this.createdAt = createdAt;
         this.xp = xp;
         this.level = level;
+        this.hpCurrent = level.getHp();
+        this.hpMax = level.getHp();
     }
 
     public String getId() {
@@ -96,16 +98,12 @@ public class Character implements Serializable {
         this.hpMax = hpMax;
     }
 
-    public int getNoOfMonstersAround() {
-        return noOfMonstersAround;
-    }
-
-    public void setNoOfMonstersAround(int noOfMonstersAround) {
-        this.noOfMonstersAround = noOfMonstersAround;
-    }
-
     public List<Monster> getMonstersAround() {
         return monstersAround;
+    }
+
+    public int getFaintCount() {
+        return faintCount;
     }
 
     public void addXP(int xp){
@@ -117,6 +115,31 @@ public class Character implements Serializable {
             this.level = nextLevel;
             this.hpMax = level.getHp();
             this.hpCurrent = level.getHp();
+        }
+    }
+
+    public void damage(int hp){
+        if(hp > 0){
+            if(hpCurrent - hp > 0){
+//                System.out.println("You took "+hp+" damage!");
+                hpCurrent -= hp;
+            } else {
+                int overkill = hp - hpCurrent + level.getLevel();
+//                System.out.println("You took "+hp+" damage and fainted! You've lost "+overkill+" XP");
+                System.out.println("You have fainted! You've lost "+overkill+" XP");
+                xp -= overkill;
+                if(xp < 0) xp = 0;
+                hpCurrent = 0;
+            }
+        }
+    }
+
+    public void revive(){
+        if(hpCurrent == 0){
+            faintCount++;
+            System.out.println("You woke up and see that all monsters are gone, you are feeling fine again");
+            hpCurrent = (int) (hpMax * 0.75);
+            this.monstersAround.clear();
         }
     }
 
@@ -145,6 +168,6 @@ public class Character implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%s, %s", name, level.getTitle());
+        return String.format("%s, %s, HP: %d/%d", name, level.getTitle(), hpCurrent, hpMax);
     }
 }

@@ -18,7 +18,7 @@ public class MonsterUtil {
 
     static {
         try {
-            monsterNames = Files.readAllLines(Paths.get(MonsterUtil.class.getResource("monsters.txt").toURI()));
+            monsterNames = Files.readAllLines(Paths.get(MonsterUtil.class.getResource("/monsters.txt").toURI()));
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -26,7 +26,7 @@ public class MonsterUtil {
 
     public static Monster generateMonster(Character character){
         String monsterName = monsterNames.get((int) (Math.random() * monsterNames.size()));
-        int hp = (int) (character.getHpMax() * (Math.random() * 0.7 + 0.7));
+        int hp = (int) (character.getHpMax() * (Math.random() * 1.0 + 0.7));
         return new Monster(hp, hp, monsterName, 10 + hp / 10);
     }
 }

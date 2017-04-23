@@ -1,6 +1,8 @@
 package com.sebworks.psychicbroccoli.common;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,6 +21,7 @@ public class Character implements Serializable {
     private int hpCurrent = 100;
     private int hpMax = 100;
     private int noOfMonstersAround = 0;
+    private List<Monster> monstersAround = new ArrayList<>();
 
     public Character(String name) {
         this(name, System.currentTimeMillis(), System.currentTimeMillis(), 0, Level.LEVEL_1);
@@ -99,6 +102,32 @@ public class Character implements Serializable {
 
     public void setNoOfMonstersAround(int noOfMonstersAround) {
         this.noOfMonstersAround = noOfMonstersAround;
+    }
+
+    public List<Monster> getMonstersAround() {
+        return monstersAround;
+    }
+
+    public void addXP(int xp){
+        this.xp += xp;
+        System.out.println("You have gained "+xp+" XP");
+        Level nextLevel = this.level.nextLevel();
+        if(nextLevel != null && nextLevel.getXp() <= this.xp){
+            System.out.println("Leveled up! You are now a "+nextLevel.getTitle());
+            this.level = nextLevel;
+            this.hpMax = level.getHp();
+            this.hpCurrent = level.getHp();
+        }
+    }
+
+    public void heal(int hp){
+        if(hpCurrent < hpMax){
+            int heal = Math.min(hp, hpMax - hpCurrent);
+            hpCurrent += heal;
+            if(heal > 0){
+                System.out.println("You have healed for "+hp+" HP");
+            }
+        }
     }
 
     @Override

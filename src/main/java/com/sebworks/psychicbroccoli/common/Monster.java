@@ -47,4 +47,9 @@ public class Monster {
     public void setXpReward(int xpReward) {
         this.xpReward = xpReward;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%d [hp=%d, xp reward=%d]", name, hpMax, xpReward);
+    }
 }

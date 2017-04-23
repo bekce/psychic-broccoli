@@ -7,6 +7,10 @@ public class Option<T> {
     private T option;
     private String message;
 
+    public Option(T option) {
+        this.option = option;
+    }
+
     public Option(T option, String message) {
         this.option = option;
         this.message = message;
@@ -20,4 +24,10 @@ public class Option<T> {
         return message;
     }
 
+    @Override
+    public String toString() {
+        if(message != null && !message.isEmpty())
+            return message;
+        else return String.valueOf(option);
+    }
 }

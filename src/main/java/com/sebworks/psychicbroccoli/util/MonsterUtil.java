@@ -26,7 +26,7 @@ public class MonsterUtil {
 
     public static Monster generateMonster(Character character){
         String monsterName = monsterNames.get((int) (Math.random() * monsterNames.size()));
-        int hp = (int) (character.getHpMax() * (Math.random() * 1.0 + 0.7));
+        int hp = (int) (character.getHpMax() * (Math.random() * 1.0 + 0.6));
         return new Monster(hp, hp, monsterName, 10 + hp / 10);
     }
 }

@@ -4,7 +4,6 @@ import com.sebworks.psychicbroccoli.common.Character;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,8 +12,21 @@ import java.util.List;
  */
 public class SaveLoadUtil {
 
+    private String enclosingFolder;
+
+    /**
+     * Takes the home folder by default
+     */
+    public SaveLoadUtil() {
+        this(System.getProperty("user.home"));
+    }
+
+    public SaveLoadUtil(String enclosingFolder) {
+        this.enclosingFolder = enclosingFolder;
+    }
+
     @SuppressWarnings("unchecked")
-    public static List<Character> load() {
+    public List<Character> load() {
         File saveFile = getSaveFile();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))){
             return (List<Character>) ois.readObject();
@@ -23,7 +35,7 @@ public class SaveLoadUtil {
         }
     }
 
-    public static void save(Character character) throws IOException {
+    public void save(Character character) throws IOException {
         List<Character> list = load();
         if(list.contains(character)){
             list.remove(character);
@@ -35,8 +47,8 @@ public class SaveLoadUtil {
         }
     }
 
-    private static File getSaveFile() {
-        File folder = new File(System.getProperty("user.home"), ".psychic-broccoli");
+    private File getSaveFile() {
+        File folder = new File(enclosingFolder, ".psychic-broccoli");
         folder.mkdirs();
         return new File(folder, "save.dat");
     }

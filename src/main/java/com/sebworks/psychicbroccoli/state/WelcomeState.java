@@ -39,7 +39,7 @@ public class WelcomeState implements State {
                     System.out.println(name + " embarks upon a new adventure!");
                     return new MainState(new Character(name));
                 case LOAD:
-                    List<Character> characters = SaveLoadUtil.load();
+                    List<Character> characters = new SaveLoadUtil().load();
                     if (characters.isEmpty()) {
                         System.err.println("You don't currently have any characters");
                         break;

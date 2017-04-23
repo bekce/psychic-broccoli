@@ -48,7 +48,6 @@ public class MainState implements State {
                         character.addXP(xp);
                         character.heal(xp);
                     }
-                    return new AdventureState(character);
                 case FIGHT:
                     if(character.getMonstersAround().isEmpty()){
                         System.err.println("No monsters around!");
@@ -96,7 +95,7 @@ public class MainState implements State {
                     break;
                 case SAVE:
                     try {
-                        SaveLoadUtil.save(character);
+                        new SaveLoadUtil().save(character);
                         System.out.println("Progress saved!");
                     } catch (IOException e) {
                         System.err.println("Problem saving your character! Detail: "+e.getMessage());

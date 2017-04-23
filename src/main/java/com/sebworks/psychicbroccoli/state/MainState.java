@@ -3,6 +3,9 @@ package com.sebworks.psychicbroccoli.state;
 import com.sebworks.psychicbroccoli.common.Character;
 import com.sebworks.psychicbroccoli.request.Option;
 import com.sebworks.psychicbroccoli.request.SelectionRequest;
+import com.sebworks.psychicbroccoli.util.SaveLoadUtil;
+
+import java.io.IOException;
 
 /**
  * Created by seb on 23.04.2017.
@@ -21,22 +24,30 @@ public class MainState implements State {
 
     @Override
     public State outcome() {
-        switch (new SelectionRequest<MainOption>()
-                .addOption(new Option<>(MainOption.EXPLORE, "Explore the world"))
-                .addOption(new Option<>(MainOption.FIGHT, "Fight monsters"))
-                .addOption(new Option<>(MainOption.SAVE, "Save game"))
-                .addOption(new Option<>(MainOption.RETURN, "Return to main menu"))
-                .ask()) {
-            case EXPLORE:
-                break;
-            case FIGHT:
-                break;
-            case SAVE:
-                break;
-            case RETURN:
-                break;
+        while(true){
+            System.out.println("\nCharacter: " + character);
+            switch (new SelectionRequest<MainOption>()
+                    .addOption(new Option<>(MainOption.EXPLORE, "Explore the world"))
+                    .addOption(new Option<>(MainOption.FIGHT, "Fight monsters"))
+                    .addOption(new Option<>(MainOption.SAVE, "Save progress"))
+                    .addOption(new Option<>(MainOption.RETURN, "Return to main menu"))
+                    .ask()) {
+                case EXPLORE:
+                    break;
+                case FIGHT:
+                    break;
+                case SAVE:
+                    try {
+                        SaveLoadUtil.save(character);
+                        System.out.println("Progress saved!");
+                    } catch (IOException e) {
+                        System.err.println("Problem saving your character! Detail: "+e.getMessage());
+                        e.printStackTrace();
+                    }
+                    break;
+                case RETURN:
+                    return new WelcomeState();
+            }
         }
-
-        return null;
     }
 }

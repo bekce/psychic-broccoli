@@ -24,21 +24,20 @@ public class InputRequest implements Request<String> {
 
     @Override
     public String ask() {
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                if (infoMessage != null && infoMessage.length() > 0)
-                    System.out.println(infoMessage);
-                String scan = scanner.nextLine();
-                if(validRegexPattern != null){
-                    Matcher matcher = validRegexPattern.matcher(scan);
-                    if(matcher.find()){
-                       return scan;
-                    }
-                } else {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            if (infoMessage != null && infoMessage.length() > 0)
+                System.out.println(infoMessage);
+            String scan = scanner.nextLine();
+            if(validRegexPattern != null){
+                Matcher matcher = validRegexPattern.matcher(scan);
+                if(matcher.find()){
                     return scan;
                 }
-                System.out.println("Bad entry, please try again");
+            } else {
+                return scan;
             }
+            System.err.println("Bad entry, please try again");
         }
     }
 }

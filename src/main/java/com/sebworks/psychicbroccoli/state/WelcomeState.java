@@ -6,6 +6,7 @@ import com.sebworks.psychicbroccoli.util.SaveLoadUtil;
 import com.sebworks.psychicbroccoli.request.InputRequest;
 import com.sebworks.psychicbroccoli.request.SelectionRequest;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -40,9 +41,10 @@ public class WelcomeState implements State {
                 case LOAD:
                     List<Character> characters = SaveLoadUtil.load();
                     if (characters.isEmpty()) {
-                        System.out.println("You don't currently have any characters");
+                        System.err.println("You don't currently have any characters");
                         break;
                     }
+                    Collections.reverse(characters);
                     character = new SelectionRequest<Character>("Select a character to load").setOptionValues(characters).ask();
                     return new MainState(character);
                 case QUIT:

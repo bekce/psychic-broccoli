@@ -54,25 +54,25 @@ public class SelectionRequest<T> implements Request<T> {
         if(options == null || options.isEmpty()){
             throw new IllegalStateException("options is null");
         }
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                if (infoMessage != null && infoMessage.length() > 0)
-                    System.out.println(infoMessage);
-                for (int i = 0; i < options.size(); i++) {
-                    Option<T> option = options.get(i);
-                    System.out.println((i + 1) + ". " + option.toString());
-                }
-                System.out.printf("Choose an option (%d-%d): ", 1, options.size());
-                String scan = scanner.next();
-                try {
-                    int opt = Integer.parseInt(scan);
-                    if (opt > 0 && opt <= options.size()) {
-                        return options.get(opt - 1).getOption();
-                    }
-                } catch (NumberFormatException ignored) {
-                }
-                System.out.println("Bad option, please try again");
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            if (infoMessage != null && infoMessage.length() > 0)
+                System.out.println(infoMessage);
+            for (int i = 0; i < options.size(); i++) {
+                Option<T> option = options.get(i);
+                System.out.println((i + 1) + ". " + option.toString());
             }
+            System.out.printf("Choose an option (%d-%d): ", 1, options.size());
+            String scan = scanner.nextLine();
+//            System.out.println();
+            try {
+                int opt = Integer.parseInt(scan);
+                if (opt > 0 && opt <= options.size()) {
+                    return options.get(opt - 1).getOption();
+                }
+            } catch (NumberFormatException ignored) {
+            }
+            System.err.println("Bad option, please try again");
         }
     }
 }

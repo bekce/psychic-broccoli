@@ -1,4 +1,4 @@
-package com.sebworks.psychicbroccoli;
+package com.sebworks.psychicbroccoli.request;
 
 /**
  * Created by seb on 23.04.2017.

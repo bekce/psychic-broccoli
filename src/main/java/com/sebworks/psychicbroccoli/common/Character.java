@@ -1,4 +1,4 @@
-package com.sebworks.psychicbroccoli;
+package com.sebworks.psychicbroccoli.common;
 
 import java.io.Serializable;
 import java.util.Objects;

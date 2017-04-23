@@ -1,4 +1,6 @@
-package com.sebworks.psychicbroccoli;
+package com.sebworks.psychicbroccoli.util;
+
+import com.sebworks.psychicbroccoli.common.Character;
 
 import java.io.*;
 import java.util.ArrayList;

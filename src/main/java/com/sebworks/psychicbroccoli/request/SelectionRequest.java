@@ -1,7 +1,5 @@
 package com.sebworks.psychicbroccoli.request;
 
-import com.sebworks.psychicbroccoli.Option;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

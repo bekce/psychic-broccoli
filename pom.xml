@@ -86,6 +86,15 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>4.3.0</version>
+                <configuration>
+                    <repoToken>TLsF1mdv4chXqjYnN9JwC7s9mQtsTuIns</repoToken>
+                    <jacocoReports>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoReports>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
